@@ -53,7 +53,7 @@ class FloatSpinbox(CTK.CTkFrame):
             if self.add_command is not None:
                 self.add_command()
 
-        except ValueError:
+        except ValueError as e:
             return
 
     def subtract(self):
@@ -81,10 +81,23 @@ class FloatSpinbox(CTK.CTkFrame):
         return value
 
     def set(self, value: float):
-        if value > self.max_value :
-            raise ValueError(f"Value ({value}) is greater than max_value {self.max_value}")
-        elif value < self.min_value:
-            raise ValueError(f"Value ({value}) is lesser than min_value {self.min_value}")
+        if self.min_value is not None and self.max_value is not None :
+            if value > self.max_value :
+                raise ValueError(f"Value ({value}) is greater than max_value {self.max_value}")
+            elif value < self.min_value:
+                raise ValueError(f"Value ({value}) is lesser than min_value {self.min_value}")
 
         self.entry.delete(0, CTK.END)
         self.entry.insert(CTK.END, float(value))
+
+
+app = CTK.CTk()
+
+app.title("Custom SpinBox")
+
+spinbox = FloatSpinbox(app,min_value=1,max_value=100,step_size=10)
+spinbox.set(5)
+spinbox.pack(pady=10,padx=10)
+
+
+app.mainloop()
