@@ -89,15 +89,3 @@ class FloatSpinbox(CTK.CTkFrame):
 
         self.entry.delete(0, CTK.END)
         self.entry.insert(CTK.END, float(value))
-
-
-app = CTK.CTk()
-
-app.title("Custom SpinBox")
-
-spinbox = FloatSpinbox(app,min_value=1,max_value=100,step_size=10)
-spinbox.set(5)
-spinbox.pack(pady=10,padx=10)
-
-
-app.mainloop()
